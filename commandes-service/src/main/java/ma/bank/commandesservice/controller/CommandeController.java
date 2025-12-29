@@ -1,6 +1,8 @@
 package ma.bank.commandesservice.controller;
 
+import ma.bank.commandesservice.client.ProductRestClient;
 import ma.bank.commandesservice.model.Commande;
+import ma.bank.commandesservice.model.Product;
 import ma.bank.commandesservice.repository.CommandeRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -17,9 +19,11 @@ public class CommandeController {
     @Value("${mes-config-ms.commandes-last}")
     private int lastDays;
     private final  CommandeRepository repository;
+    private final ProductRestClient productRestClient;
 
-    public CommandeController(CommandeRepository repository) {
+    public CommandeController(CommandeRepository repository,ProductRestClient productRestClient) {
         this.repository = repository;
+        this.productRestClient = productRestClient;
     }
 
 
@@ -35,7 +39,14 @@ public class CommandeController {
 
     @GetMapping("/{id}")
     public Commande getCommandeById(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+        Commande c =repository.findById(id).orElse(null);
+        if(c == null) {
+            return null;
+        }
+        Product product = productRestClient.getProductById(c.getProduct().getId());
+        c.setProduct(product);
+        return c;
+
     }
 
     @PostMapping
