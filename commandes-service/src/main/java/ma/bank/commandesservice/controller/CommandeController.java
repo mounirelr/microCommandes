@@ -16,14 +16,16 @@ import java.util.List;
 @RequestMapping("/commandes")
 public class CommandeController {
 
+    private final CommandeRepository commandeRepository;
     @Value("${mes-config-ms.commandes-last}")
     private int lastDays;
     private final  CommandeRepository repository;
     private final ProductRestClient productRestClient;
 
-    public CommandeController(CommandeRepository repository,ProductRestClient productRestClient) {
+    public CommandeController(CommandeRepository repository, ProductRestClient productRestClient, CommandeRepository commandeRepository) {
         this.repository = repository;
         this.productRestClient = productRestClient;
+        this.commandeRepository = commandeRepository;
     }
 
 
@@ -39,15 +41,12 @@ public class CommandeController {
 
     @GetMapping("/{id}")
     public Commande getCommandeById(@PathVariable Long id) {
-        Commande c =repository.findById(id).orElse(null);
-        if(c == null) {
-            return null;
-        }
-        Product product = productRestClient.getProductById(c.getProduct().getId());
-        c.setProduct(product);
-        return c;
-
+        Commande commande = commandeRepository.findById(id).orElseThrow();
+        Product product = productRestClient.getProductById(commande.getProductId());
+        commande.setProduct(product);
+        return commande;
     }
+
 
     @PostMapping
     public Commande addCommande(@RequestBody Commande commande) {

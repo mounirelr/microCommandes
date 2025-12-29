@@ -30,6 +30,7 @@ public class CommandesServiceApplication {
 		return (args) -> {
 
 			List<Product> allProducts = productRestClient.getProducts();
+			System.out.println("Products fetched: " + allProducts.size());
 
 			allProducts.forEach(product -> {
 				Commande commande = Commande.builder()
