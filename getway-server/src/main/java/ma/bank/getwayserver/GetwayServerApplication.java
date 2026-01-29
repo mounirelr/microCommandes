@@ -19,4 +19,6 @@ public class GetwayServerApplication {
         return new DiscoveryClientRouteDefinitionLocator(discoveryClient,properties);
     }
 
+
+
 }
