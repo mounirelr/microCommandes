@@ -8,24 +8,26 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="getway-server" />
         <module name="discovery-server" />
+        <module name="common-openapi-config" />
+        <module name="getway-server" />
       </profile>
-      <profile name="Annotation profile for products-service" enabled="true">
+      <profile name="Annotation profile for commandes-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
         </processorPath>
-        <module name="products-service" />
         <module name="commandes-service" />
+        <module name="products-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="commandes-service" options="-parameters" />
+      <module name="common-openapi-config" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="getway-server" options="-parameters" />

@@ -1,5 +1,6 @@
 package ma.bank.commandesservice;
 
+
 import ma.bank.commandesservice.client.ProductRestClient;
 import ma.bank.commandesservice.model.Commande;
 import ma.bank.commandesservice.model.Product;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalDate;
 import java.util.List;
